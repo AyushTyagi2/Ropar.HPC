@@ -1,0 +1,549 @@
+/* ============================================================
+   Ropar HPC — Research Team
+   Visual language: a lab specimen log, not a SaaS card grid.
+   Palette drawn from the histology stains the lab's own work
+   depends on (hematoxylin violet, eosin rose, DAB ochre) plus
+   a slate control tone for the alumni record.
+   ============================================================ */
+
+:root {
+  --paper: #eef3f1;
+  --paper-deep: #e3ebe7;
+  --ink: #142329;
+  --ink-soft: #4c626b;
+  --ink-faint: #7c8f96;
+  --rule: rgba(20, 35, 41, 0.15);
+  --rule-strong: rgba(20, 35, 41, 0.3);
+
+  --violet: #5b4e8c;
+  --violet-tint: #efeaf9;
+  --rose: #b8536f;
+  --rose-tint: #fbeaef;
+  --ochre: #9c6b1f;
+  --ochre-tint: #f7ecd8;
+  --slate: #5c7079;
+  --slate-tint: #e6ecec;
+
+  --font-display: var(--font-serif), "Iowan Old Style", serif;
+  --font-body: var(--font-sans), system-ui, sans-serif;
+  --font-data: var(--font-mono), "SFMono-Regular", monospace;
+
+  --content-w: 96rem;
+  --gutter: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.wrap {
+  max-width: var(--content-w);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------- Header ---------------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+  
+}
+
+.site-header__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-block: 1.1rem;
+  gap: 1.5rem;
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.wordmark__text {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.wordmark__text em {
+  font-style: italic;
+  color: var(--violet);
+}
+
+.wordmark img {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.site-nav {
+  display: flex;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  font-size: 0.92rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav a {
+  text-decoration: none;
+  color: var(--ink-soft);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 0.15rem;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.site-nav a:hover {
+  color: var(--ink);
+  border-color: var(--rule-strong);
+}
+
+/* ---------------- Hero ---------------- */
+
+.hero {
+  padding-block: clamp(3rem, 8vw, 6rem) clamp(2.5rem, 6vw, 4rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.hero__eyebrow {
+  font-family: var(--font-data);
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  margin: 0 0 1.1rem;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.15rem, 4.6vw, 3.55rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  margin: 0 0 1.4rem;
+}
+
+.hero h1 i {
+  color: var(--violet);
+  font-style: italic;
+}
+
+.hero p.lede {
+  font-size: 1.08rem;
+  color: var(--ink-soft);
+  max-width: 38rem;
+  margin: 0;
+}
+
+.hero__figure {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.hero__pattern {
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+
+.hero__stats {
+  display: flex;
+  gap: clamp(1.25rem, 3vw, 2.25rem);
+  border-top: 1px solid var(--rule);
+  padding-top: 0.9rem;
+}
+
+.hero__stat b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.hero__stat span {
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+
+/* ---------------- Section shells ---------------- */
+
+section.block {
+  padding-block: clamp(2.25rem, 5vw, 3.5rem);
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  border-top: 1px solid var(--ink);
+  padding-top: 0.7rem;
+  margin-bottom: 1.75rem;
+}
+
+.section-head h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.section-head .count {
+  font-family: var(--font-data);
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+
+/* ---------------- PI feature ---------------- */
+
+.pi {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  align-items: start;
+}
+
+.pi__photo {
+  width: 100%;
+  height: 17.5rem;
+  object-fit: cover;
+  border-radius: 2px;
+  filter: grayscale(0.15) contrast(1.02);
+}
+
+.pi > div {
+  max-width: 58rem;
+}
+
+.pi h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 500;
+  margin: 0 0 0.35rem;
+}
+
+.pi__role {
+  color: var(--violet);
+  font-size: 0.95rem;
+  margin: 0 0 1.1rem;
+  max-width: 34rem;
+}
+
+.pi__bio {
+  color: var(--ink-soft);
+  max-width: 40rem;
+  margin: 0 0 1.25rem;
+}
+
+.pi__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.6rem;
+  font-family: var(--font-data);
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--rule);
+}
+
+.pi__meta a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.pi__meta a:hover {
+  color: var(--violet);
+  border-color: var(--violet);
+}
+
+/* ---------------- Roster (specimen log rows) ---------------- */
+
+.roster {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  gap: 1rem;
+}
+
+.roster-row {
+  display: grid;
+  grid-template-columns: 14rem minmax(0, 1fr);
+  gap: 0.85rem 1rem;
+  align-items: start;
+  min-height: 12rem;
+  padding: 1.25rem;
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--violet);
+  background: color-mix(in srgb, var(--paper) 72%, white);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.roster-row:hover {
+  border-color: var(--rule-strong);
+  transform: translateY(-2px);
+}
+
+.roster-row__code {
+  grid-column: 1 / -1;
+  font-family: var(--font-data);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  word-break: break-word;
+}
+
+.roster-row__photo {
+  width: 14rem;
+  height: 14rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+}
+
+.roster-row__photo--empty {
+  background: var(--paper-deep);
+}
+
+.roster-row__body summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 0.75rem;
+}
+
+.roster-row__body {
+  min-width: 0;
+}
+
+.roster-row__body summary::-webkit-details-marker {
+  display: none;
+}
+
+.roster-row__name {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  font-weight: 500;
+}
+
+.roster-row__role {
+  font-size: 0.86rem;
+  color: var(--ink-faint);
+}
+
+.roster-row__toggle {
+  margin-left: auto;
+  font-family: var(--font-data);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+.roster-row[data-accent="violet"] .roster-row__role { color: var(--violet); }
+.roster-row[data-accent="rose"] .roster-row__role { color: var(--rose); }
+.roster-row[data-accent="ochre"] .roster-row__role { color: var(--ochre); }
+.roster-row[data-accent="rose"] { border-top-color: var(--rose); }
+.roster-row[data-accent="ochre"] { border-top-color: var(--ochre); }
+
+.roster-row__bio {
+  margin: 0.65rem 0 0;
+  max-width: 42rem;
+  color: var(--ink-soft);
+}
+
+.roster-row__links {
+  margin-top: 0.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+  font-family: var(--font-data);
+  font-size: 0.78rem;
+}
+
+.roster-row__links a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-strong);
+  overflow-wrap: anywhere;
+}
+
+.roster-row__links a:hover {
+  border-color: currentColor;
+}
+
+.roster-row[data-accent="violet"] .roster-row__links a:hover { color: var(--violet); }
+.roster-row[data-accent="rose"] .roster-row__links a:hover { color: var(--rose); }
+.roster-row[data-accent="ochre"] .roster-row__links a:hover { color: var(--ochre); }
+
+/* ---------------- Alumni wall ---------------- */
+
+.alumni-wall {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--rule);
+  border-left: 1px solid var(--rule);
+}
+
+.alumni-entry {
+  flex: 1 1 15rem;
+  padding: 1rem 1.25rem 1rem 0;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding-left: 0;
+  margin-left: 1.25rem;
+}
+
+.alumni-entry a {
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+}
+
+.alumni-entry a:hover {
+  border-color: var(--slate);
+  color: var(--slate);
+}
+
+.alumni-entry p {
+  margin: 0.3rem 0 0;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+}
+
+/* ---------------- Footer ---------------- */
+
+.site-footer {
+  border-top: 1px solid var(--ink);
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  padding-block: 2.25rem 3rem;
+}
+
+.site-footer__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.site-footer h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin: 0 0 0.6rem;
+}
+
+.site-footer address {
+  font-style: normal;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.site-footer nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.site-footer nav a {
+  text-decoration: none;
+  color: var(--ink-soft);
+}
+
+.site-footer nav a:hover {
+  color: var(--ink);
+}
+
+.site-footer__base {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-data);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ---------------- Responsive ---------------- */
+
+@media (max-width: 760px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .hero__figure {
+    order: -1;
+  }
+  .pi {
+    grid-template-columns: 1fr;
+  }
+  .pi__photo {
+    max-width: 12rem;
+    height: 15rem;
+  }
+  .roster-row {
+    grid-template-columns: 10rem minmax(0, 1fr);
+    min-height: 0;
+    padding: 1rem;
+  }
+  .roster-row__code {
+    grid-column: 1 / -1;
+  }
+}
